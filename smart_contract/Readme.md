@@ -1,4 +1,4 @@
-# Document Verification Project
+# SecureDoc :  Blockchain-Based Document Authentication
 
 The purpose of this project is to create a decentralized system that allows users to verify the authenticity of their files. Users will generate a unique hash for their files and submit these hashes using a mapping structure. They can upload multiple file hashes simultaneously.
 
@@ -15,3 +15,12 @@ The purpose of this project is to create a decentralized system that allows user
 5. **Hash Existence Query:** Anyone should be able to query whether a specific file hash exists. If a file hash is disqualified, the system should return the new version file hash along with a descriptive message indicating that it is the updated version.
 
 These requirements define the core functionality of the project, ensuring users can confidently verify the authenticity of their files and make necessary adjustments when needed.
+
+
+
+# Setup Process
+            npx hardhat accounts
+            npx hardhat compile
+            npx hardhat clean
+            npx hardhat test
+            npx hardhat run .\scripts\deploy.js --network sepolia
