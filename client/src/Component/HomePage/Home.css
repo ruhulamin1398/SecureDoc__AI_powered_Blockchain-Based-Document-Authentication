@@ -1,0 +1,159 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto:wght@300&display=swap");
+.firstpart {
+  width: 100%;
+  background: url(../../asset/Image/smile-gdb623a357_640.jpg) no-repeat center
+    center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 500px;
+}
+.Bongo {
+  color: #01346e;
+}
+.Care {
+  color: #e46329;
+}
+
+/* Our Service Section */
+.solution-bg {
+  background-image: url("../../asset/Image/SolutionBg.png");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  padding: 0px 0px 30px 30px;
+}
+.solution {
+  margin-top: 60px;
+}
+.solution h1 {
+  color: #5574ab;
+}
+
+.border-img img {
+  height: 80px;
+  border: 2px solid #989898;
+  border-radius: 66px;
+  /* width: 98px; */
+  padding: 6px;
+}
+.sol-one-side {
+  display: flex;
+  margin: 30px;
+}
+.col-md-10 p {
+  font-size: 20px;
+  color: #606060;
+}
+.col-md-10 h5 {
+  font-weight: bold;
+}
+.col-md-10 h4 {
+  color: #5574ab;
+  font-weight: bold;
+}
+.col-md-10 h4:hover {
+  color: #5d82c2;
+  cursor: pointer;
+}
+.full-img {
+  display: flex;
+}
+
+.sol-one-side h4 {
+  color: #5574ab;
+
+  cursor: pointer;
+}
+/* End Our Service Sectin */
+/* contract section */
+.contractimg {
+  background: linear-gradient(rgba(0, 0, 0, 0.333), rgba(0, 0, 0, 0.642)),
+    url(../../asset/Image/Safety.jpg) center/cover no-repeat;
+}
+.contractform {
+  background-color: #073763;
+  color: white;
+  text-align: center;
+}
+.contractform h3 {
+  font-size: 40px;
+  margin-top: 50px;
+}
+.contact-form .form-field {
+  position: relative;
+  margin: 32px 0;
+}
+.contact-form .input-text {
+  display: block;
+  background-color: #073763;
+  width: 100%;
+  height: 46px;
+  border-width: 0 0 2px 0;
+  border-color: #5543ca;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 400;
+}
+.contact-form .input-text:focus {
+  outline: none;
+}
+.contact-form .input-text:focus + .label,
+.contact-form .input-text.not-empty + .label {
+  -webkit-transform: translateY(-24px);
+  transform: translateY(-24px);
+}
+.contact-form .label {
+  position: absolute;
+  left: 20px;
+  bottom: 11px;
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 400;
+  color: white;
+  cursor: text;
+  transition: -webkit-transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out;
+}
+.contact-form .submit-btn {
+  display: inline-block;
+  background-color: #e76329;
+
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 16px;
+  padding: 8px 16px;
+  border: none;
+  width: 200px;
+  cursor: pointer;
+}
+
+/* contract section */
+/*  photo */
+.img1 {
+  background: linear-gradient(rgba(0, 0, 0, 0.333), rgba(0, 0, 0, 0.642)),
+    url(../../asset/Image/Safety.jpg) center/cover no-repeat;
+  height: 400px;
+}
+.img2 {
+  background: linear-gradient(rgba(0, 0, 0, 0.333), rgba(0, 0, 0, 0.642)),
+    url(../../asset/Image/Safety.jpg) center/cover no-repeat;
+  height: 400px;
+}
+.img3 {
+  background: linear-gradient(rgba(0, 0, 0, 0.333), rgba(0, 0, 0, 0.642)),
+    url(../../asset/Image/Safety.jpg) center/cover no-repeat;
+  height: 400px;
+}
+.img4 {
+  background: linear-gradient(rgba(0, 0, 0, 0.333), rgba(0, 0, 0, 0.642)),
+    url(../../asset/Image/Safety.jpg) center/cover no-repeat;
+  height: 400px;
+}
+/* photo */

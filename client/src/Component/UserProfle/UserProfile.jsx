@@ -21,7 +21,11 @@ const UserProfile = () => {
 
     useEffect(() => {
         fetch('http://localhost:5000/Upload/UploadReportPost?username=' + sessionStorage.getItem('username'), {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                "authorization": `Bearer ${sessionStorage.getItem("Token")}`
+            }
         })
             .then(res => res.json())
             .then(res => setReport(res))

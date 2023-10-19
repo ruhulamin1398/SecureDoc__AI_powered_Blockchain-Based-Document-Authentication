@@ -3,9 +3,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
 import DeleteCertificate from "./Component/DeleteCertificate/DeleteCertificate";
 import FileUpload from "./Component/FileUpload/FileUpload";
+import Footer from "./Component/Footer/Footer";
 import Certificate from "./Component/FullReport/Certificate";
 import FullReport from "./Component/FullReport/FullReport";
-import Home from './Component/Home/Home';
+
+import Home from "./Component/HomePage/Home";
 import LoginPage from "./Component/LoginPage/LoginPage";
 import Nevbar from './Component/Nevbar/Nevbar';
 import RegistrationPage from './Component/RegistrationPage/RegistrationPage';
@@ -43,6 +45,7 @@ function App() {
           }
           <Route path="/VeryfyCerticate" element={<VerifyCertificate />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </userContext.Provider>
   )

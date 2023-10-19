@@ -17,29 +17,41 @@ const FileUpload = () => {
         const newFile = e.target.files[0];
         setFile(newFile);
     }
-    const handleSubmit = e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const formData = new FormData()
-        formData.append('File', file)
-        formData.append('name', name)
-        formData.append('username', Info.username)
-        formData.append('date', Info.date)
-        console.log(Object.fromEntries(formData))
-        fetch('http://localhost:5000/Upload/UserReport', {
-            method: 'POST',
-            body: formData,
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.msg === "Filed to upload image")
-                    setVisibleR(true);
-                else
-                    setVisible(true);
-            })
-            .catch(error => {
+        const formData = new FormData();
+        formData.append('File', file);
+        formData.append('name', name);
+        formData.append('username', Info.username);
+        formData.append('date', Info.date);
 
-            })
+        const token = sessionStorage.getItem("Token");
+        const headers = {
+            'Authorization': `Bearer ${token}`,
+        };
+
+        try {
+            const response = await fetch('http://localhost:5000/Upload/UserReport', {
+                method: 'POST',
+                body: formData,
+                headers: headers,
+            });
+
+            if (response.status === 200) {
+                const data = await response.json();
+                if (data.msg === "File Upload Successfully") {
+                    setVisible(true);
+                } else {
+                    setVisibleR(true);
+                }
+            } else {
+                setVisibleR(true);
+            }
+        } catch (error) {
+            setVisibleR(true);
+        }
     }
+
     useEffect(() => {
         if (visible) {
             const timeout = setTimeout(() => {
@@ -78,7 +90,7 @@ const FileUpload = () => {
                     }`}
             >
                 <div className="max-w-xl w-full bg-red-400  text-white shadow-lg rounded-lg pointer-events-auto h-10 text-center ">
-                    You have already uploaded this file
+                    Someting is wrong try again
 
 
                 </div>

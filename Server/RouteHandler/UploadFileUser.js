@@ -8,35 +8,31 @@ const UserUpload= new mongoose.model("UploadFileUser", UpoladSchema);
 const CheakLoginControler = require('../MiddleWears/CheakLoginControler');
 const fileUpload = require('express-fileupload')
 const Uploadss=  express.static('Uploads');
-router.post("/UserReport",fileUpload(),async(req,res)=>{
-  const file= req.files.File;
-const name= req.body.name;
-const username= req.body.username;
-const date= req.body.date;
+router.post("/UserReport", CheakLoginControler, fileUpload(), async (req, res) => {
+  const file = req.files.File;
+  const { name, username, date } = req.body;
 
-  const filepath= `${__dirname}/../UploadsTestReport/${file.name}`;
-    file.mv(filepath ,async err=>{
+  const filepath = `${__dirname}/../UploadsTestReport/${file.name}`;
+  file.mv(filepath, async (err) => {
       try {
-        var newImg=fs.readFileSync(filepath);
-        const encImg= newImg.toString('base64');
-        var Img= Buffer.from(encImg,'base64');
-        
-        const TestReport = new UserUpload({
-          name: name,
-          username: username,
-          img: Img ,
-          date: date,
-      });
-      await TestReport.save();
-        return res.status(200).json({msg : "File Upload Suceessfully"})
-      } catch (err) {
-      
-        return res.status(500).json({msg:'Filed to upload image'});
-      }
-    })
-  
+          const newImg = fs.readFileSync(filepath);
+          const encImg = newImg.toString('base64');
+          const Img = Buffer.from(encImg, 'base64');
 
- })
+          const TestReport = new UserUpload({
+              name,
+              username,
+              img: Img,
+              date,
+          });
+
+          await TestReport.save();
+          return res.status(200).json({ msg: "File Upload Successfully" });
+      } catch (err) {
+          return res.status(500).json({ msg: 'Failed to upload image' });
+      }
+  });
+});
 
 
  router.get("/ReportPost",async(req,res)=>{
@@ -75,7 +71,7 @@ router.get("/VerifyReportPost",async(req,res)=>{
    
 })
 
-router.get("/UploadReportPost",async(req,res)=>{
+router.get("/UploadReportPost",CheakLoginControler,async(req,res)=>{
   try {  
   
     const user = await UserUpload.find({name: req.query.username});
