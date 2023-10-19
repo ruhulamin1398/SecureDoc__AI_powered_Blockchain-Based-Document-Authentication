@@ -1,41 +1,50 @@
-import { useState ,useContext} from 'react'
-import logo from './logo.svg'
-import './App.css'
-import { TransactionContext } from './context/TransactionContext'
- 
- 
+import { createContext, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import './App.css';
+import DeleteCertificate from "./Component/DeleteCertificate/DeleteCertificate";
+import FileUpload from "./Component/FileUpload/FileUpload";
+import Certificate from "./Component/FullReport/Certificate";
+import FullReport from "./Component/FullReport/FullReport";
+import Home from './Component/Home/Home';
+import LoginPage from "./Component/LoginPage/LoginPage";
+import Nevbar from './Component/Nevbar/Nevbar';
+import RegistrationPage from './Component/RegistrationPage/RegistrationPage';
+import UserProfile from "./Component/UserProfle/UserProfile";
+import VerifyCertificate from "./Component/VerifyCertificate/VerifyCertificate";
+
+export const userContext = createContext();
 
 function App() {
-  const [count, setCount] = useState(0)
-  const {connectWallet , currentAccount , transactionCount , demTransactionsContract,uploadFiles } = useContext(TransactionContext)
 
+  const [userLogin, setUserLogin] = useState(false)
 
-  function logTransaction(){
-    // console.log(transactionCount) ;
-    console.log(demTransactionsContract); 
-
-    uploadFiles()
-   
-  }
 
   return (
-    <div className='text-center'>
-    <h1 className="text-3xl font-bold underline mt-[200px]  text-center">
-      Hello world!
-    </h1>
-    <br/>
-{ !currentAccount? 
+    <userContext.Provider value={[userLogin, setUserLogin]}>
+      <BrowserRouter>
+        <Nevbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Reg" element={<RegistrationPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          {sessionStorage.getItem("username") || userLogin === true ? (<>
+            <Route path="/userProfile" element={<UserProfile />} />
+            <Route path="/uploadFile" element={<FileUpload />} />
+            <Route path="/viewReport/:id" element={<FullReport />} />
+            <Route path="/fullimage/:id" element={<Certificate />} />
+            <Route path="/viewReport/:id" element={<FullReport />} />
+            <Route path="/delete/:id" element={<DeleteCertificate />} />
 
-<button className='text-3xl font-bold underline' onClick={()=>{ connectWallet()}}> connectWallet</button>
-:
-<>
-<button className='text-3xl font-bold underline'  > {currentAccount}</button> <br/>
-<button className='text-3xl font-bold underline'  onClick={ ()=>{ logTransaction()}} > Get Transactions</button>
-</>
+          </>) :
+            <>
 
-    
-  }
-    </div>
+
+            </>
+          }
+          <Route path="/VeryfyCerticate" element={<VerifyCertificate />} />
+        </Routes>
+      </BrowserRouter>
+    </userContext.Provider>
   )
 }
 
