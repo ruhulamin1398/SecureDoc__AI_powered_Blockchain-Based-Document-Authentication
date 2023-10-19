@@ -1,0 +1,55 @@
+.footer-bg {
+  background-image: url("../../asset/Image/footerunderline.jpeg");
+  background-position: center center;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+
+  color: white;
+}
+.footer-logo {
+  margin: 15px;
+  height: 100px;
+}
+.upside {
+  display: flex;
+}
+.upside h6 {
+  padding: 15px;
+  font-size: 18px;
+  cursor: pointer;
+}
+.upside h6:hover {
+  color: rgb(221, 206, 206);
+}
+
+.textfooter {
+  border-bottom: 1px solid rgba(61, 67, 76, 0.9);
+  width: 100%;
+}
+.icon {
+  height: 45px;
+  margin-right: 3px;
+  color: rgb(86, 86, 245);
+}
+.socialicon {
+  font-size: 30px;
+  margin: 5px 15px 0px 10px;
+  cursor: pointer;
+}
+.socialicon:hover {
+  color: gainsboro;
+}
+.downside {
+  background-color: #181313;
+  color: white;
+  font-weight: bold;
+}
+.contractinfofooter h2 {
+  font-size: 30px;
+  color: white;
+}
+.contractinfofooter p {
+  font-size: 15px;
+  color: white;
+}
