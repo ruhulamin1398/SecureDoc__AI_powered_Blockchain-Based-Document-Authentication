@@ -4,19 +4,19 @@ const router = express.Router();
 const ObjectId = require('mongodb').ObjectID;
 const bcrypt = require("bcrypt");
 const userSchema = require("../Scheema/UserScheema");
-const DoctorSchema= require("../Scheema/DoctorScheema")
+
 const User= new mongoose.model("User", userSchema);
 const jwt = require("jsonwebtoken");
-const Doctor = new mongoose.model("Doctor",DoctorSchema)
+
 const CheakLoginControler = require('../MiddleWears/CheakLoginControler')
 const saltRounds = 10;
 
 router.post("/user",async(req,res)=>{
-    console.log(req.body)
+
     const hashpassword =  await bcrypt.hash(req.body.password_1, saltRounds);
-    console.log(hashpassword);
+ 
     try {
-       console.log(req.body)
+     
         const newUser = new User({
             name: req.body.name,
             username: req.body.username,
@@ -37,33 +37,7 @@ router.post("/user",async(req,res)=>{
             });
         }
 })
-// router.post("/doctor",async(req,res)=>{
-//     console.log(req.body)
-//     const hashpassword =  await bcrypt.hash(req.body.password_1, saltRounds);
-//     console.log(hashpassword);
-//     try {
-//        console.log(req.body)
-//         const newDoctor = new Doctor({
-//             name: req.body.name,
-//             username: req.body.username,
-//             email: req.body.email,
-//             Registation: req.body.Registation,
-//             phone: req.body.phone,
-//             address: req.body.address,
 
-//             password: hashpassword,
-//         });
-//         await newDoctor.save();
-//         res.status(200).json({
-//             message: "Signup was successful!",
-//         });
-//     } catch(error) {
-//     console.log(error)
-//         res.status(200).json({
-//             message: "username and email should be uniqe",
-//         });
-//     }
-// })
 router.post("/login",async(req,res)=>{
    try {
       const user = await User.find({ username: req.body.username });
@@ -129,7 +103,7 @@ router.put("/UpdateUserProfile/:id", async (req, res) => {
         }
       }
     );
-    console.log(req.body);
+   
   });
 
   router.get("/Profile",CheakLoginControler,async(req,res)=>{
