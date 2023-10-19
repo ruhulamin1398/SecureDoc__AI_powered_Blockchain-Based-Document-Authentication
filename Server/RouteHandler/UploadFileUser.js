@@ -56,29 +56,24 @@ const date= req.body.date;
 
    
 })
-router.get("/VerifyDocument", async (req, res) => {
-  try {
-    const documentId = req.query.number;
-    console.log(documentId);
+router.get("/VerifyReportPost",async(req,res)=>{
+  try {  
+  
+    const user = await UserUpload.find({});
 
-    if (!ObjectId.isValid(documentId)) {
-      return res.status(400).json({ error: "Invalid document ID" });
-    }
-
-    const user = await UserUpload.findOne({ _id: documentId });
-
-    if (user) {
-      res.send(user);
-    } else {
-      res.status(404).json({ error: "Document not found" });
-    }
+      // console.log(user)
+      if(user&&user.length>0){
+          res.send(user)
+      }
+      
   } catch (error) {
-    console.error("Server Error:", error);
-    res.status(500).json({
-      error: "Internal Server Error. Please try again later."
-    });
+      res.status(500).json({
+          "error": "Something Is Wrong Please Try Again"
+      }); 
   }
-});
+
+   
+})
 
 router.get("/UploadReportPost",async(req,res)=>{
   try {  

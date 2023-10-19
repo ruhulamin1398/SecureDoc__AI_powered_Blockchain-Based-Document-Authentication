@@ -1,10 +1,9 @@
-import axios from 'axios';
 import React, { useEffect, useState } from "react";
 
 const VerifyCertificate = () => {
     const [visible, setVisible] = useState(false);
     const [visibleR, setVisibleR] = useState(false);
-
+    const [report, setReport] = useState([]);
     const [newUser, setNewUser] = useState({
         number: ""
     });
@@ -20,30 +19,24 @@ const VerifyCertificate = () => {
 
     const userSubmit = (e) => {
         e.preventDefault();
-        const { number } = newUser;
 
-        if (number) {
-            axios.get(`http://localhost:5000/Upload/VerifyDocument?number=${number}`)
-                .then(res => {
-                    if (res.data.error) {
-                        setErrorText(res.data.error); // Set error message
-                        setVisibleR(true);
-                    } else {
-                        setErrorText(""); // Clear error message
-                        setVisible(true);
-                    }
-                })
-                .catch(error => {
-                    console.error("Request Error:", error);
-                    setErrorText("Request Error. Please try again."); // Handle the error
-                    setVisibleR(true);
-                });
+        // Check if newUser.number exists in the report array
+        const found = report.some(item => item._id === newUser.number);
+
+        if (found) {
+            setVisible(true); // Show the "It's Correct Document" message
         } else {
-            setErrorText("Please enter a document number.");
-            setVisibleR(true);
+            setVisibleR(true); // Show the "Fake Document" message
         }
-    }
+    };
 
+    useEffect(() => {
+        fetch('http://localhost:5000/Upload/VerifyReportPost', {
+            method: 'GET'
+        })
+            .then(res => res.json())
+            .then(res => setReport(res))
+    }, []);
     useEffect(() => {
         if (visible) {
             const timeout = setTimeout(() => {
