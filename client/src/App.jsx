@@ -1,3 +1,4 @@
+
 import { createContext, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
@@ -49,6 +50,6 @@ function App() {
       </BrowserRouter>
     </userContext.Provider>
   )
-}
+} 
 
-export default App
+export default App;
