@@ -1,42 +1,18 @@
-import { useState ,useContext} from 'react'
-import logo from './logo.svg'
-import './App.css'
-import { TransactionContext } from './context/TransactionContext'
- 
+import  Welcome  from "./components/Welcome";
+
  
 
-function App() {
-  const [count, setCount] = useState(0)
-  const {connectWallet , currentAccount , transactionCount , demTransactionsContract,uploadFiles } = useContext(TransactionContext)
+ 
 
-
-  function logTransaction(){
-    // console.log(transactionCount) ;
-    console.log(demTransactionsContract); 
-
-    uploadFiles()
-   
-  }
-
-  return (
-    <div className='text-center'>
-    <h1 className="text-3xl font-bold underline mt-[200px]  text-center">
-      Hello world!
-    </h1>
-    <br/>
-{ !currentAccount? 
-
-<button className='text-3xl font-bold underline' onClick={()=>{ connectWallet()}}> connectWallet</button>
-:
-<>
-<button className='text-3xl font-bold underline'  > {currentAccount}</button> <br/>
-<button className='text-3xl font-bold underline'  onClick={ ()=>{ logTransaction()}} > Get Transactions</button>
-</>
-
-    
-  }
+ 
+const App = () => (
+  <div className="min-h-screen">
+    <div className="gradient-bg-welcome">
+ 
+      <Welcome/>
     </div>
-  )
-}
+ 
+  </div>
+);
 
-export default App
+export default App;

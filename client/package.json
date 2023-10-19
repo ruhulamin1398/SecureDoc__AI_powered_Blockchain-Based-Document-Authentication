@@ -1,5 +1,5 @@
 {
-  "name": "vite264",
+  "name": "client",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -7,7 +7,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "ethers": "^5.5.1",
+    "ethers": "^5.7.2",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-icons": "^4.11.0"
