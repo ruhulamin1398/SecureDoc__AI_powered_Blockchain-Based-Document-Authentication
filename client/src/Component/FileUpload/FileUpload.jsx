@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 const FileUpload = () => {
-    const name = sessionStorage.getItem('username');
+    const name = sessionStorage.getItem('Institude Name');
     const [Info, setInfo] = useState({});
     const [file, setFile] = useState(null);
     const [visible, setVisible] = useState(false);
@@ -10,7 +10,7 @@ const FileUpload = () => {
     const handleBlur = (e) => {
         const newInfo = { ...Info };
         newInfo[e.target.name] = e.target.value;
-        console.log(newInfo)
+
         setInfo(newInfo);
     }
     const handleFileChange = e => {
@@ -23,6 +23,9 @@ const FileUpload = () => {
         formData.append('File', file);
         formData.append('name', name);
         formData.append('username', Info.username);
+        formData.append('CourseStart', Info.CourseStart);
+        formData.append('CourseEnd', Info.CourseEnd);
+        formData.append('CourseName', Info.CourseName);
         formData.append('date', Info.date);
 
         const token = sessionStorage.getItem("Token");
@@ -105,7 +108,7 @@ const FileUpload = () => {
 
 
 
-
+                        <label for="cars">Uploaded Date</label>
 
                         <input
                             type="date"
@@ -115,20 +118,55 @@ const FileUpload = () => {
                             placeholder="date"
                             required
                         />
-
+                        <label for="cars">Name</label>
                         <input
                             type="text"
                             name="username"
                             class="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-200"
                             onBlur={handleBlur}
-                            placeholder="user name"
+                            placeholder="Name"
                             required
                         />
+
+
+                        <div class="mb-4 flex space-x-4 items-center">
+                            <div class="flex-1">
+                                <label for="start_date" class="text-gray-600">Course Start</label> <br />
+                                <input
+                                    type="date"
+                                    name="CourseStart"
+                                    class="px-4 py-2 border rounded focus:ring-4 focus:ring-blue-200"
+                                    onBlur={handleBlur}
+                                    required
+                                />
+                            </div>
+                            <div class="flex-1">
+                                <label for="end_date" class="text-gray-600">Course End</label> <br />
+                                <input
+                                    type="date"
+                                    name="CourseEnd"
+                                    class="px-4 py-2 border rounded focus:ring-4 focus:ring-blue-200"
+                                    onBlur={handleBlur}
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <label for="cars">Course Name</label>
+                        <input
+                            type="text"
+                            name="CourseName"
+                            class="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-200"
+                            onBlur={handleBlur}
+                            placeholder="Course Name"
+                            required
+                        />
+                        <label for="cars">Upload File</label>
 
                         <input
                             type="file"
                             name="img"
                             onChange={handleFileChange}
+                            accept=".pdf"
                             placeholder="Upload Jpg png Jpeg Image"
                             class="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-200"
                             required
@@ -142,6 +180,8 @@ const FileUpload = () => {
                 </div>
             </div>
         </div>
+
+
     );
 };
 

@@ -121,6 +121,30 @@ router.put("/UpdateUserProfile/:id", async (req, res) => {
   
      
  })
+
+
+ router.put('/ChangePassword',CheakLoginControler, async (req, res) => {
+    const { password_1 } = req.body;
+    const userId = req.query.id;
+   
+
+    try {
+        // Hash the new password
+        const hashpassword = await bcrypt.hash(password_1, saltRounds);
+
+        // Update the user's password
+        const updatedUser = await User.findByIdAndUpdate(userId, { password: hashpassword }, { new: true, useFindAndModify: false });
+
+        if (!updatedUser) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.status(200).json({ message: 'Password is updated successfully' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'There was a server-side error' });
+    }
+});
  router.get("/Alluserprofile",async(req,res)=>{
     try {  
         const user = await User.find({ });
