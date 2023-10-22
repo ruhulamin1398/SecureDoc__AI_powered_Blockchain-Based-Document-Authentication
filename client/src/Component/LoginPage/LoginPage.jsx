@@ -33,9 +33,9 @@ const LoginPage = () => {
                     if (res.data.error) {
                         setVisibleR(true);
                     } else {
-                        sessionStorage.setItem('username', username);
-                        sessionStorage.setItem('StudentLogin', true);
-                        sessionStorage.setItem('Token', res.data.access_token);
+                        localStorage.setItem('username', username);
+                        localStorage.setItem('StudentLogin', true);
+                        localStorage.setItem('Token', res.data.access_token);
                         setVisible(true);
                         setUserLogin(true);
                     }
