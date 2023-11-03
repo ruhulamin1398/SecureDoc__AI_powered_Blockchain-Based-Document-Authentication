@@ -58,7 +58,7 @@ const RegistrationPage = () => {
                     {
                         headers: {
                             "Content-Type": "application/json",
-                            authorization: `Bearer ${sessionStorage.getItem("Token")}`,
+                            authorization: `Bearer ${localStorage.getItem("Token")}`,
                         },
                     }
                 )

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 const FileUpload = () => {
-    const name = sessionStorage.getItem('Institude Name');
+    const name = localStorage.getItem('Institude Name');
     const [Info, setInfo] = useState({});
     const [file, setFile] = useState(null);
     const [visible, setVisible] = useState(false);
@@ -28,7 +28,7 @@ const FileUpload = () => {
         formData.append('CourseName', Info.CourseName);
         formData.append('date', Info.date);
 
-        const token = sessionStorage.getItem("Token");
+        const token = localStorage.getItem("Token");
         const headers = {
             'Authorization': `Bearer ${token}`,
         };

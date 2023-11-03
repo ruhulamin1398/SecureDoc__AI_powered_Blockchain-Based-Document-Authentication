@@ -21,7 +21,7 @@ export const userContext = createContext();
 function App() {
 
   const [userLogin, setUserLogin] = useState(false)
-
+  console.log(localStorage.getItem("Token"))
 
   return (
     <userContext.Provider value={[userLogin, setUserLogin]}>
@@ -32,7 +32,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/Reg" element={<RegistrationPage />} />
             <Route path="/login" element={<LoginPage />} />
-            {sessionStorage.getItem("username") || userLogin === true ? (<>
+            {localStorage.getItem("username") || userLogin === true ? (<>
               <Route path="/userProfile" element={<UserProfile />} />
               <Route path="/uploadFile" element={<FileUpload />} />
               <Route path="/viewReport/:id" element={<FullReport />} />

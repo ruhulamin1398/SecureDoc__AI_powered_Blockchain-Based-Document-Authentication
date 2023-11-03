@@ -21,11 +21,11 @@ const ChangePassword = () => {
     }
     let navigate = useNavigate();
     useEffect(() => {
-        fetch('http://localhost:5000/Singup/Profile?username=' + sessionStorage.getItem('username'), {
+        fetch('http://localhost:5000/Singup/Profile?username=' + localStorage.getItem('username'), {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                "authorization": `Bearer ${sessionStorage.getItem("Token")}`
+                "authorization": `Bearer ${localStorage.getItem("Token")}`
             }
         })
             .then(res => res.json())
@@ -39,7 +39,7 @@ const ChangePassword = () => {
             axios.put('http://localhost:5000/Singup/ChangePassword?id=' + user[0]._id, newUser, {
                 headers: {
                     'Content-Type': 'application/json',
-                    "authorization": `Bearer ${sessionStorage.getItem("Token")}`
+                    "authorization": `Bearer ${localStorage.getItem("Token")}`
                 }
             })
                 .then(res => {

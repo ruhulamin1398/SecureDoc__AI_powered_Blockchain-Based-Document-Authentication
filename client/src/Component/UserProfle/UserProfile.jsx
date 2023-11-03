@@ -7,25 +7,25 @@ const UserProfile = () => {
     const [testname, setTestName] = useState("");
 
     useEffect(() => {
-        fetch('http://localhost:5000/Singup/Profile?username=' + sessionStorage.getItem('username'), {
+        fetch('http://localhost:5000/Singup/Profile?username=' + localStorage.getItem('username'), {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                "authorization": `Bearer ${sessionStorage.getItem("Token")}`
+                "authorization": `Bearer ${localStorage.getItem("Token")}`
             }
         })
             .then(res => res.json())
             .then(res => (setUser(res),
-                sessionStorage.setItem("Institude Name", res[0].name))
+                localStorage.setItem("Institude Name", res[0].name))
             )
     }, []);
 
     useEffect(() => {
-        fetch('http://localhost:5000/Upload/UploadReportPost?username=' + sessionStorage.getItem('Institude Name'), {
+        fetch('http://localhost:5000/Upload/UploadReportPost?username=' + localStorage.getItem('Institude Name'), {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                "authorization": `Bearer ${sessionStorage.getItem("Token")}`
+                "authorization": `Bearer ${localStorage.getItem("Token")}`
             }
         })
             .then(res => res.json())
