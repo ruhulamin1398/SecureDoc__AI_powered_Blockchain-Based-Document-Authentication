@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"; // Make sure to import Link
-
 const UserProfile = () => {
     const [user, setUser] = useState([]);
     const [report, setReport] = useState([]);
@@ -8,23 +7,25 @@ const UserProfile = () => {
     const [testname, setTestName] = useState("");
 
     useEffect(() => {
-        fetch('http://localhost:5000/Singup/Profile?username=' + sessionStorage.getItem('username'), {
+        fetch('http://localhost:5000/Singup/Profile?username=' + localStorage.getItem('username'), {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                "authorization": `Bearer ${sessionStorage.getItem("Token")}`
+                "authorization": `Bearer ${localStorage.getItem("Token")}`
             }
         })
             .then(res => res.json())
-            .then(res => setUser(res))
+            .then(res => (setUser(res),
+                localStorage.setItem("Institude Name", res[0].name))
+            )
     }, []);
 
     useEffect(() => {
-        fetch('http://localhost:5000/Upload/UploadReportPost?username=' + sessionStorage.getItem('username'), {
+        fetch('http://localhost:5000/Upload/UploadReportPost?username=' + localStorage.getItem('Institude Name'), {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                "authorization": `Bearer ${sessionStorage.getItem("Token")}`
+                "authorization": `Bearer ${localStorage.getItem("Token")}`
             }
         })
             .then(res => res.json())
@@ -68,14 +69,9 @@ const UserProfile = () => {
                                 </div>
                             </li>
                             <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                                <div className="row">
-                                    <div className="col-sm-12">
-                                        <form action="" encType="multipart/form-data">
-                                            <input type="file" name="avatar" id="avatar" placeholder="Please Upload Your File" />
-                                            <input type="submit" value="Submit" name="submit" placeholder="Submit" />
-                                        </form>
-                                    </div>
-                                </div>
+                                <Link to="/ChangePassword">   <button type="submit" name="reg" className="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-theam-color rounded-md shadow hover:bg-blue-600 focus:outline-none focus:ring-blue-200 focus:ring-4">
+                                    <b>Change Password</b>
+                                </button></Link>
                             </li>
                         </ul>
                     </div>

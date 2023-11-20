@@ -10,7 +10,7 @@ const Navbar = () => {
     let navigate = useNavigate();
     const logout = () => {
         setUserLogin(false);
-        sessionStorage.clear();
+        localStorage.clear();
         navigate("/login", { replace: true });
     }
 
@@ -49,7 +49,7 @@ const Navbar = () => {
                             </a></Link>
                         </li>
 
-                        {((sessionStorage.getItem("username")) || userLogin === true) ?
+                        {((localStorage.getItem("username")) || userLogin === true) ?
                             (<>         <li>
                                 <Link to="/userProfile">
                                     <a href="#" className="block py-2 pl-3 pr-4 text-white rounded hover-bg-gray-100 md:hover-bg-transparent md:border-0 md:hover-text-blue-700 md:p-0 dark-text-white md:dark-hover-text-blue-500 dark-hover-bg-gray-700 dark-hover-text-white md:dark-hover-bg-transparent">

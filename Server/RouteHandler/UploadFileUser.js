@@ -10,8 +10,8 @@ const fileUpload = require('express-fileupload')
 const Uploadss=  express.static('Uploads');
 router.post("/UserReport", CheakLoginControler, fileUpload(), async (req, res) => {
   const file = req.files.File;
-  const { name, username, date } = req.body;
-
+  const { name, username, date,CourseStart,CourseEnd,CourseName } = req.body;
+console.log(req.body)
   const filepath = `${__dirname}/../UploadsTestReport/${file.name}`;
   file.mv(filepath, async (err) => {
       try {
@@ -23,6 +23,9 @@ router.post("/UserReport", CheakLoginControler, fileUpload(), async (req, res) =
               name,
               username,
               img: Img,
+              CourseStart,
+              CourseEnd,
+              CourseName,
               date,
           });
 

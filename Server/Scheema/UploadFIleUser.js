@@ -11,6 +11,18 @@ const UpoladSchema= mongoose.Schema({
         type: "string",
         require: "true"
     },
+    CourseStart:{
+        type: "string",
+        require: "true"
+    },
+    CourseEnd:{
+        type: "string",
+        require: "true"
+    },
+    CourseName:{
+        type: "string",
+        require: "true"
+    },
     img:{
        type: 'Buffer',
        require: "true",
