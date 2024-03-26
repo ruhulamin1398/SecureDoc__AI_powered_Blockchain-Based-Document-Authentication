@@ -1,0 +1,101 @@
+.hero-wrapper {
+  display: flex;
+  justify-content: center;
+  /* background-color: #041633; */
+  margin: 0;
+  padding: 0;
+  background-color: #041633;
+}
+
+.hero-inner-wrapper {
+  background-image: url("./images/hero-bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 1140px;
+  height: 762px;
+
+  /* background-color: #041633; */
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-title {
+  color: #ffffff;
+  font-size: 32px;
+  font-weight: 400;
+}
+
+.search-container {
+  width: 70% !important;
+  padding: 40px 30px;
+  background-color: #ffffff1a;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  width: 70% !important;
+  padding: 40px 30px;
+  background-color: #ffffff1a;
+}
+
+.search-container .ant-input-search-button,
+.login-button {
+  background-color: #2ab27b;
+  color: white;
+  width: 115px;
+  height: 40px;
+}
+
+.login-input {
+  width: 330px;
+}
+
+.pdf-regi-wrapper {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  width: 70%;
+  padding: 0 30px;
+
+  background-color: #102742;
+}
+
+.pdf-wrapper {
+  display: flex;
+}
+
+.pdf-text {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+credential-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+
+.credential-text {
+  color: white;
+  font-size: 1rem;
+  text-align: start !important;
+}
+
+.credential-button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.credential-note {
+  color: white;
+  font-size: 0.8rem;
+}
