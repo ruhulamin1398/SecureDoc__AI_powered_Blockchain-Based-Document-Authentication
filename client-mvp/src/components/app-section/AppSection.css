@@ -1,0 +1,29 @@
+.get-app-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 70px;
+}
+
+.get-app-inner-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.number-text {
+  height: 72px;
+  width: 72px;
+  font-size: 50px;
+  border-radius: 50%;
+  border: 1px solid gray;
+  text-align: center;
+  font-weight: 400;
+}
+
+.get-app-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1d245c;
+}
