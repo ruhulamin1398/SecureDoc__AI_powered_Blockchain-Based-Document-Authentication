@@ -6,6 +6,7 @@ import { Drawer, Image, Menu } from "antd";
 import { GithubOutlined, MenuFoldOutlined } from "@ant-design/icons";
 import logo from "./images/Logo.png";
 import { useState } from "react";
+import Footer from "../footer/Footer";
 
 const LayoutWrapper = () => {
   function getItem(label, key, icon, children, type) {
@@ -92,6 +93,7 @@ const LayoutWrapper = () => {
         </div>
       </header>
       <Outlet />
+      <Footer />
     </>
   );
 };
