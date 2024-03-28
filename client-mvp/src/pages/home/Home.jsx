@@ -1,7 +1,7 @@
 import "./Home.css";
-import Hero from "../../components/hero-section/Hero";
-import YoutubeSection from "../../components/youtube-section/YoutubeSection";
-import AppSection from "../../components/app-section/AppSection";
+import YoutubeSection from "./../../components/home-components/youtube-section/YoutubeSection";
+import AppSection from "./../../components/home-components/app-section/AppSection";
+import Hero from "./../../components/home-components/hero-section/Hero";
 
 const Home = () => {
   return (
