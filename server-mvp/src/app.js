@@ -17,6 +17,9 @@ const User = require("./models/userModel");
 const VerificationCode  = require("./models/verificationCodeModel");
 
 
+const documentRoutes = require("./routers/documentRoutes"); 
+
+
 // Middleware to parse JSON in the request body
 app.use(express.json());
 
@@ -27,15 +30,15 @@ app.get('/hi', AsyncHandler(async(req,res)=>{
 
 }));
 // for no production only , please remove before deploy
-app.get('/clean-data', AsyncHandler(async(req,res)=>{
+// app.get('/clean-data', AsyncHandler(async(req,res)=>{
   
   
-  await User.deleteMany({});
-  await VerificationCode.deleteMany({})
+//   await User.deleteMany({});
+//   await VerificationCode.deleteMany({})
    
- res.json({ "msg" : "All data was deleted " })
+//  res.json({ "msg" : "All data was deleted " })
 
-}));
+// }));
 
 app.get('/users', AsyncHandler(async(req,res)=>{
 
@@ -53,12 +56,15 @@ app.use('/api/v1/users', userRoute);
 app.use('/api/v1/contacts', contactRoutes);
 
 
+app.use('/documents', documentRoutes);
+
+
 // console.log(listEndpoints(app));
 
 
 
 app.use(errorHandler);
-const PORT  = process.env.PORT || 5001;
+const PORT  = process.env.PORT || 5010;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
