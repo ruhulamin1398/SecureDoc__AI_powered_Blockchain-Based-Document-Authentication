@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState,useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import UserOne from '../../images/user/user-01.png';
+import { TransactionContext } from "../../context/TransactionContext";
+import { shortenAddress } from "../../utils/shortenAddress";
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -35,6 +37,9 @@ const DropdownUser = () => {
     return () => document.removeEventListener('keydown', keyHandler);
   });
 
+
+  const { currentAccount, connectWallet, handleChange, sendTransaction, formData, isLoading } = useContext(TransactionContext);
+
   return (
     <div className="relative">
       <Link
@@ -43,13 +48,15 @@ const DropdownUser = () => {
         className="flex items-center gap-4"
         to="#"
       >
+
+{currentAccount && (
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas Anree
+            Ethereum Account 
           </span>
-          <span className="block text-xs">UX Designer</span>
+          <span className="block text-xs"> {shortenAddress(currentAccount)}</span>
         </span>
-
+)}
         <span className="h-12 w-12 rounded-full">
           <img src={UserOne} alt="User" />
         </span>

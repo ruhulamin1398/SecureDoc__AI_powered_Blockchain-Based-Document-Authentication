@@ -1,7 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState,useContext } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import SidebarLinkGroup from './SidebarLinkGroup';
-import Logo from '../../images/logo/logo-white.png';
+import Logo from '../../images/logo/logo-white-2.png';
+
+import { TransactionContext } from "../../context/TransactionContext";
+import { shortenAddress } from "../../utils/shortenAddress";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -55,6 +58,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     }
   }, [sidebarExpanded]);
 
+  const { currentAccount, connectWallet, handleChange, sendTransaction, formData, isLoading } = useContext(TransactionContext);
+
   return (
     <aside
       ref={sidebar}
@@ -67,6 +72,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         <NavLink to="/">
           <img src={Logo} width={"200px"} alt="Logo" />
         </NavLink>
+
+   
 
         <button
           ref={trigger}
@@ -89,14 +96,61 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             />
           </svg>
         </button>
+
+
+ 
+
+
       </div>
       {/* <!-- SIDEBAR HEADER --> */}
+ 
+      {!currentAccount && (
+            <button
+              type="button"
+              onClick={connectWallet}
+              className="flex flex-row justify-center items-center  w-[100px] bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd] mx-auto"
+            >
+               
+              <p className="text-white text-base font-semibold">
+                Login 
+              </p>
+              <p className="text-white font-light text-sm">
+                  {/* {shortenAddress(currentAccount)} */}
+                </p>
+            </button>
+          )}
+
+ 
+{currentAccount && (
+
+<div className="p-3  rounded-xl h-40 sm:w-72 w-full my-5 eth-card .white-glassmorphism mx-auto">
+            <div className="flex justify-between flex-col w-full h-full">
+          
+          
+              <div>
+              <p className="text-white font-light text-lg mt-1">
+                 Connected  Account
+                </p>
+                <p className="text-white font-light text-sm">
+                  {shortenAddress(currentAccount)}
+                </p>
+           
+              </div>
+            </div>
+            </div>
+            )}
+
 
       <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
         {/* <!-- Sidebar Menu --> */}
         <nav className="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
           {/* <!-- Menu Group --> */}
           <div>
+ 
+
+ 
+
+
             <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
               MENU
             </h3>
@@ -154,7 +208,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             fill="white"
                           />
                         </svg>
-                        Forms
+                        Documents
                         <svg
                           className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${
                             open && 'rotate-180'
