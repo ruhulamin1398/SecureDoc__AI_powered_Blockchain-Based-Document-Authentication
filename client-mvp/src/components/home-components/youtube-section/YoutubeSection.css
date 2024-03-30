@@ -1,0 +1,32 @@
+.YT-title {
+  font-size: 2rem;
+  color: #2ab27b;
+  font-weight: 400;
+  text-align: center;
+}
+
+.YT-subtitle {
+  font-size: 1.1rem;
+  color: #4e5b6f;
+  text-align: center;
+}
+
+.YT-wrapper {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh;  */
+}
+
+.i-frame {
+  width: 50%;
+  height: 500px;
+  /* border-radius: 24px; */
+}
+
+.divider-class {
+  width: 70%;
+}
