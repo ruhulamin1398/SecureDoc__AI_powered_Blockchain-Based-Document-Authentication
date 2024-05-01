@@ -1,8 +1,7 @@
 import React, {ChangeEvent, createContext, useEffect, useState, ReactNode } from "react";
 import { ethers } from "ethers";
-import { contractABI, contractAddress } from "../utils/constrants";
-import { sha256 } from 'js-sha256'; 
-import { json } from "react-router-dom";
+import { contractABI, contractAddress, handleEncrypt, handleDecrypt } from "../utils/constrants";
+import { sha256 } from 'js-sha256';  
 
 export interface TransactionContextType {
   transactionCount: number;
@@ -28,6 +27,7 @@ export interface TransactionContextType {
   GetInstitutionAdminList: () => void;
   UploadDocument: () => void;
   GetAllDoceuments : () =>void;
+  allDoceuments:{ [key: string]: any };
 
   
 }
@@ -45,6 +45,7 @@ export const TransactionContext = createContext<TransactionContextType>({
   formData: {},
   
   transactions: [],
+  allDoceuments:{},
   currentAccount: "",
   isLoading: false, 
 
@@ -85,6 +86,8 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
   const [currentAccount, setCurrentAccount] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [transactionCount, setTransactionCount] = useState(1);
+  const [allDoceuments, setAllDoceuments] = useState<[key: string]>([]);
+  
 
 
   const [formData, setFormData] = useState<{ [key: string]: any }>({});
@@ -245,7 +248,24 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
     const pdfHash =  sha256(dpdf)
     const dataHash =  sha256(sha256(JSON.stringify(djson)))
       
-    const encryptedData = "S9WVhp2Ww2paZYYm3YlCPxYwd+cYqrFE91brrCY6BLU5ukLxDgZ8fHShS0vtce0oOZbIGqXfwV6u5O6+SLhpuQAHCL1UXnJi4iAhF4TURTPRh6kOzjt0GdQ66oMUowT/qo+x3mcYFIvkR8cRbn8vFnXhe+lNsNM6PWkNa2SvEp8=" 
+    const encryptedData = await handleEncrypt(JSON.stringify(djson))
+
+    // console.log("encryptData             ---------------------        ")
+
+    // console.log(encryptedData)
+
+
+    
+
+    // const decryptedData = await handleDecrypt(encryptedData)
+
+
+    // console.log("decryptedData             ---------------------        ")
+
+    // console.log(decryptedData)
+
+
+   
     
 
 
@@ -273,9 +293,11 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
     
       const documents  =await transactionsContract.getUploaderDocuments(currentAccount);
     
-        console.log("-------------------------------------------")
+        console.log("----------------------- from get all document --------------------")
         console.log(JSON.stringify(documents))
         console.log("####################################################")
+        setAllDoceuments(documents)
+        console.log(JSON.stringify(documents))
     
       }
   
@@ -508,6 +530,8 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
         GetInstitutionAdminList,
         UploadDocument,
         GetAllDoceuments,
+
+        allDoceuments,
         
         
 

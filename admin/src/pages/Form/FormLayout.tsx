@@ -57,9 +57,9 @@ const FormLayout = () => {
 
 console.log("submitted")
   // AddNewAuthority()
-  GetAuthorityMemberList()
+  // GetAuthorityMemberList()
   // AddNewInstitutionAdmin()
-  GetInstitutionAdminList();
+  // GetInstitutionAdminList();
    UploadDocument()
   GetAllDoceuments();
     
@@ -110,7 +110,7 @@ console.log("submitted")
 
 
       <DefaultLayout>
-        <Breadcrumb pageName="Add new Document" />
+        <Breadcrumb pageName="Add new Certificate" />
 
 <div>{currentAccount}</div>
 

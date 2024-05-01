@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
 
-import { contractABI, contractAddress, donationAddress } from "../utils/constrants";
+import { contractABI, contractAddress, encryptData } from "../utils/constrants";
 
 interface Transaction {
   addressTo: string;

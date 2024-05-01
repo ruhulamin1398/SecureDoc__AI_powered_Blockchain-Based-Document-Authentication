@@ -70,19 +70,19 @@ function App() {
           }
         />
         <Route
-          path="/forms/form-layout"
+          path="/certificates/add-certificate"
           element={
             <>
-              <PageTitle title="SecureDoc | Add New Document" />
+              <PageTitle title="SecureDoc | Add New Certificate" />
               <FormLayout />
             </>
           }
         />
         <Route
-          path="/tables"
+          path="/certificates"
           element={
             <>
-              <PageTitle title="Tables | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="SecureDoc |  Certificate list" />
               <Tables />
             </>
           }
