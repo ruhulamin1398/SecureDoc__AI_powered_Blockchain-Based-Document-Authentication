@@ -1,13 +1,20 @@
 import { Link, Outlet } from "react-router-dom";
 import "./LayoutWrapper.css";
 import useGetMenuKey from "../../hooks/useGetMenuKey";
+import { TransactionContext } from "../../context/TransactionContext";
+import { shortenAddress } from "../../utils/constrants";
+
 // import { Header } from "antd/es/layout/layout";
 import { Drawer, Image, Menu } from "antd";
-import { GithubOutlined, MenuFoldOutlined } from "@ant-design/icons";
+import { GithubOutlined, MenuFoldOutlined , LoginOutlined } from "@ant-design/icons";
 import logo from "./images/Logo.png";
-import { useState } from "react";
+import { useState,useContext } from "react";
+import Footer from "../footer/Footer";
 
 const LayoutWrapper = () => {
+  const { connectWallet, currentAccount} = useContext(TransactionContext);
+
+
   function getItem(label, key, icon, children, type) {
     return {
       key: key,
@@ -40,7 +47,8 @@ const LayoutWrapper = () => {
         <GithubOutlined /> GITHUB
       </a>,
       "github"
-    ),
+    ),    
+ 
   ];
 
   const menuKey = useGetMenuKey();
@@ -56,9 +64,9 @@ const LayoutWrapper = () => {
                 preview={false}
                 className="secureDoc-logo-image"
               />
-              {/* <h3>SecureDoc</h3> */}
+               
             </div>
-          </Link>
+          </Link> 
 
           <Menu
             className="layout-menu"
@@ -68,6 +76,18 @@ const LayoutWrapper = () => {
             items={items}
             selectedKeys={menuKey}
           />
+
+
+          {!currentAccount && ( <div onClick={connectWallet}  style={{color:"white"}}  > <LoginOutlined />  Connect Wallet </div> )}
+
+          {currentAccount && ( <div style={{color:"white"}}  > {shortenAddress(currentAccount)}</div> )}
+          
+
+
+    
+
+
+ 
           <MenuFoldOutlined className="drawer-button" onClick={showDrawer} />
 
           <Drawer
@@ -92,6 +112,7 @@ const LayoutWrapper = () => {
         </div>
       </header>
       <Outlet />
+      <Footer />
     </>
   );
 };

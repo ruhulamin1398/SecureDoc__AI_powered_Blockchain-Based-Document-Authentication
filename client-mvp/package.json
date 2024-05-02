@@ -13,12 +13,17 @@
     "@ant-design/icons": "^5.3.5",
     "antd": "^5.15.3",
     "autoprefixer": "^10.4.19",
+    "crypto-js": "^4.2.0",
+    "ethers": "^5.7.2",
     "lodash": "^4.17.21",
     "postcss": "^8.4.38",
     "postcss-cli": "^11.0.0",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.3"
+    "react-pdf": "^7.7.1",
+    "react-router-dom": "^6.22.3",
+    "react-spinners": "^0.13.8"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

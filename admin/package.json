@@ -14,10 +14,17 @@
     "url": "https://tailadmin.com"
   },
   "dependencies": {
+    "@types/crypto-js": "^4.2.2",
+    "aes-encryption": "^1.0.4",
     "apexcharts": "^3.41.0",
+    "copy-to-clipboard": "^3.3.3",
+    "crypto-js": "^4.2.0",
+    "encrypt-rsa": "^2.1.5",
     "ethers": "^5.7.2",
     "flatpickr": "^4.6.13",
     "headlessui": "^0.0.0",
+    "js-crypto-aes": "^1.0.6",
+    "js-sha256": "^0.11.0",
     "jsvectormap": "^1.5.3",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",

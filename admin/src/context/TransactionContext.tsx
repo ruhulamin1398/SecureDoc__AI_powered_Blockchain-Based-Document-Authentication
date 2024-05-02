@@ -1,54 +1,109 @@
-import React, { useEffect, useState } from "react";
+import React, {ChangeEvent, createContext, useEffect, useState, ReactNode } from "react";
 import { ethers } from "ethers";
+import { contractABI, contractAddress, handleEncrypt, handleDecrypt } from "../utils/constrants";
+import { sha256 } from 'js-sha256';  
 
-import { contractABI, contractAddress, donationAddress } from "../utils/constrants";
+export interface TransactionContextType {
+  transactionCount: number;
+  connectWallet: () => void;
 
-interface Transaction {
-  addressTo: string;
-  addressFrom: string;
-  timestamp: string;
-  message: string;
-  keyword: string;
-  amount: number;
-}
+  sendTransaction: () => void;
+  transactions: any[]; // Adjust this according to the type of transactions
+  currentAccount: string;
+  isLoading: boolean;
+  handleChange: (e: ChangeEvent<HTMLInputElement>, name: string) => void;
 
-interface FormData {
-  name: string;
-  doctype: string;
-  comment: string;
+  formData: { [key: string]: any };
+ 
+
+
+  
+
+  AddNewAuthority: () => void;
+  GetAuthorityMemberList: () => void;
+  getAuthorityDetails: () => void;
+
+  AddNewInstitutionAdmin: () => void;
+  GetInstitutionAdminList: () => void;
+  UploadDocument: () => void;
+  GetAllDoceuments : () =>void;
+  allDoceuments:{ [key: string]: any };
+
   
 }
 
-interface TransactionsProviderProps {
-  children: React.ReactNode;
-}
+ 
 
-export const TransactionContext = React.createContext<any>(null);
+
+
+export const TransactionContext = createContext<TransactionContextType>({
+  transactionCount: 0,
+  connectWallet: () => { },
+  sendTransaction: () => { },
+
+  handleChange: (e, name) => {},
+  formData: {},
+  
+  transactions: [],
+  allDoceuments:{},
+  currentAccount: "",
+  isLoading: false, 
+
+
+  AddNewAuthority: () => { },
+  GetAuthorityMemberList: () => { },
+  getAuthorityDetails: () => { },
+  AddNewInstitutionAdmin: () => { },
+  GetInstitutionAdminList: () => { },
+  UploadDocument : () =>{},
+  GetAllDoceuments : () =>{},
+
+
+});
 
 const { ethereum } = window as any;
 
-const createEthereumContract = () => {
+const createEthereumContract = async () => {
   const provider = new ethers.providers.Web3Provider(ethereum);
+  await provider.send("eth_requestAccounts", []);
   const signer = provider.getSigner();
-  const transactionsContract = new ethers.Contract(contractAddress, contractABI, signer);
+  const transactionsContract = new ethers.Contract(
+    contractAddress,
+    contractABI,
+    signer
+  );
+
+  console.log(transactionsContract);
 
   return transactionsContract;
 };
 
+interface TransactionsProviderProps {
+  children: ReactNode;
+}
+
 export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ children }) => {
-  const [formData, setformData] = useState<FormData>({ addressTo: "", amount: "", keyword: "", message: "" });
-  const [currentAccount, setCurrentAccount] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [transactionCount, setTransactionCount] = useState<number | null>(parseInt(localStorage.getItem("transactionCount") || '0'));
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [currentAccount, setCurrentAccount] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [transactionCount, setTransactionCount] = useState(1);
+  const [allDoceuments, setAllDoceuments] = useState<[key: string]>([]);
+  
+
+
+  const [formData, setFormData] = useState<{ [key: string]: any }>({});
+
+  const [transactions, setTransactions] = useState<any[]>([]); 
+
+  
 
   const handleChange = (e, name) => {
+    console.log("---------------------------" , name)
     if (e.target.type === 'file') {
       const file = e.target.files[0];
       const reader = new FileReader();
       
       reader.onload = (event) => {
-        setformData({
+        setFormData({
           ...formData,
           [name]: event.target.result // Store the content of the file
         });
@@ -56,38 +111,356 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
       
       reader.readAsText(file); // Read the file as text
     } else {
-      setformData({
+      setFormData({
         ...formData,
         [name]: e.target.value
       });
     }
+
+    console.log(formData)
   };
   
+
+
+
+
+
+
+    //////////////////////////////////////////////////////
+    // *! add Authority member ------------------------ //
+    //////////////////////////////////////////////////////
+
+  const AddNewAuthority = async () => {
+
+    const transactionsContract =   await createEthereumContract();
+
+    const  id = "0x28F1170dE3752Bf8C091386801D4d1c3961006AC";
+    const name = "Ruhul Account 1";
+    const description = " this is for testing only"; 
+    await transactionsContract.addAuthorityMember(id, name, description);
+
+    const authorityMember = await transactionsContract.authorityMembers(id);
+
+    console.log("-------------------------------------------")
+    console.log(authorityMember)
+    console.log("####################################################")
+
+  }
+
+
+    ////////////////////////////////////
+  // *! Get Authority member details  //
+  ////////////////////////////////////
+  const getAuthorityDetails = async () => { 
+    const transactionsContract =   await createEthereumContract();
+
+   const  id = "0x27aE72820F05f8B823530d66Bb4FC14b37b6E028";
+    const authorityMember = await transactionsContract.authorityMembers(id);
+    console.log("-------------------------------------------")
+    console.log(authorityMember)
+    console.log("####################################################")
+
+  }
+
+  
+       //////////////////////////////////
+    // *! Get authority member list //
+    //////////////////////////////////
+
+  const GetAuthorityMemberList = async () => { 
+
+    const transactionsContract =   await createEthereumContract();
+
+    const authorityMemberList = await transactionsContract.getAuthorityMemberList(); 
+
+    console.log("-------------------------------------------")
+    console.log(authorityMemberList)
+    console.log("####################################################")
+
+  }
+
+
+
+
+
+
+    //////////////////////////////////
+   
+    // *! add Institutions admin//
+    //////////////////////////////////
+
+    const AddNewInstitutionAdmin = async () => { 
+
+      console.log("------- Adding Institutions admin -----------------")
+  
+      const transactionsContract =   await createEthereumContract();
+
+      const id = "0x28F1170dE3752Bf8C091386801D4d1c3961006AC";
+      const name = "Shahjalal University of Science and Technology";
+      const description = " added for testing only";
+      const institutions = await transactionsContract.addInstitutionAdmin(id, name, description);
+    
+        console.log(institutions)
+        console.log("####################################################")
+    
+      }
+  
+
+
+
+
+
+
+    //////////////////////////////////
+   
+    // *! Get  Institutions list //
+    //////////////////////////////////
+
+    const GetInstitutionAdminList = async () => { 
+    
+    const transactionsContract =   await createEthereumContract();
+  
+    const institutions  =await transactionsContract.getInstitutionAdminList();
+  
+      console.log("-------------------------------------------")
+      console.log(institutions)
+      console.log("####################################################")
+  
+    }
+
+    
+
+
+
+      //////////////////////////////////////////////////////
+    // *! upload new  Document  ------------------------ //
+
+    //////////////////////////////////////////////////////
+
+
+    const UploadDocument = async () => { 
+
+    const transactionsContract =   await createEthereumContract();
+
+    const {id, name, comment, doctype, djson, dpdf } = formData;
+
+
+    const pdfHash =  sha256(dpdf)
+    const dataHash =  sha256(sha256(JSON.stringify(djson)))
+      
+    const encryptedData = await handleEncrypt(JSON.stringify(djson))
+
+    // console.log("encryptData             ---------------------        ")
+
+    // console.log(encryptedData)
+
+
+    
+
+    // const decryptedData = await handleDecrypt(encryptedData)
+
+
+    // console.log("decryptedData             ---------------------        ")
+
+    // console.log(decryptedData)
+
+
+   
+    
+
+
+   const document=  await transactionsContract.uploadDocument(pdfHash,dataHash,encryptedData,doctype);
+ 
+     
+     
+        console.log("-------------------------------------------")
+        console.log(document)
+        console.log("####################################################")
+        alert("Certificate Uploaded successfully !!!! ")
+    
+      }
+
+
+    //////////////////////////////////
+   
+    // *! Get  Institutions list //
+    //////////////////////////////////
+
+    const GetAllDoceuments = async () => { 
+    
+      const transactionsContract =   await createEthereumContract();
+      console.log("--------------------------- ",currentAccount)
+    
+      const documents  =await transactionsContract.getUploaderDocuments(currentAccount);
+    
+        console.log("----------------------- from get all document --------------------")
+        console.log(JSON.stringify(documents))
+        console.log("####################################################")
+        setAllDoceuments(documents)
+        console.log(JSON.stringify(documents))
+    
+      }
+  
+    
+      
+
+
+   
+
+    
+
+
+
+
+
+
+
+
+  const sendTransaction = async () => {
+
+    console.log("  ===============================   send transaction  11 ==============================")
+    const transactionsContract = await createEthereumContract();
+    let id;
+    let data;
+
+    //////////////////////////////////////////////////////////
+    // *! This codes for instraction only. dont uncomment this //
+    //////////////////////////////////////////////////////////
+
+
+  
+
+ 
+
+
+
+
+
+    ////////////////////////////////////
+    // *!change authority member status //getAuthorityDetails
+    ////////////////////////////////////
+
+    //   id = "0x27aE72820F05f8B823530d66Bb4FC14b37b6E028";
+    // const status = false ;
+    // await transactionsContract.changeAuthorityMemberStatus(id, status);
+
+
+
+
+
+    ////////////////////////////////////
+    // *!Remove authority member //
+    ////////////////////////////////////
+
+    //   id = "0x27aE72820F05f8B823530d66Bb4FC14b37b6E028";
+    // await transactionsContract.removeAuthorityMember(id);
+
+
+
+   
+
+
+    ///////////////////////////////////////////////
+    // *! Get Institutions admin details  //
+    /////////////////////////////////////////////////
+
+    //   id = "0x27aE72820F05f8B823530d66Bb4FC14b37b6E028";
+    // data = await transactionsContract.institutionAdmins(id);
+
+    ////////////////////////////////////
+    // *!change Institutions admin  status //
+    ////////////////////////////////////
+
+    //   id = "0x27aE72820F05f8B823530d66Bb4FC14b37b6E028";
+    // const status = false ;
+    // await transactionsContract.changeInstitutionAdminStatus(id, status);
+
+
+
+    ////////////////////////////////////
+    // *!Remove Institutions admin  //
+    ////////////////////////////////////
+
+    //   id = "0x27aE72820F05f8B823530d66Bb4FC14b37b6E028";
+    // await transactionsContract.removeInstitutionAdmin(id);
+
+
+  
+
+
+
+    //////////////////////////////////////////////////////
+    // *! Disqualify Document  ------------------------ //
+
+    //////////////////////////////////////////////////////
+
+    // const pdfHash = "9e9465e36826bb361103b0b614a0685bf547ce10e4a9b244aed4d4354908b500" ;
+    // const msg = "thare was and issue";
+    // const newPdfHash = "9e9465e36826bb361103b0b614a0685bf547ce10e4a9b244aed4d4354908b500" ;
+
+    // await transactionsContract.disqualifyDocument(pdfHash,msg,newPdfHash);
+
+
+
+
+
+    //////////////////////////////////////////////////////
+    // *! Verify document via Data hash  ------------------------ //
+
+    //////////////////////////////////////////////////////
+
+    const dataHash = "6fe6021f948f23a378d338e5aae048b05bbf2a796101e6e5b10cf15dd0917a00"
+
+    console.log(" status ----  ", " data== ", await transactionsContract.checkDataHashExistence(dataHash));
+
+
+    //////////////////////////////////////////////////////
+    // *! Verify document via pdfHash  ------------------------ //
+
+    //////////////////////////////////////////////////////
+
+    const pdfHash = "6fe6021f948f23a378d338e5aae048b05bbf2a796101e6e5b10cf15dd09178"
+
+    console.log(" status ----  ", " pdf == ", await transactionsContract.checkPdfHashExistence(pdfHash));
+
+
+    //////////////////////////////////////////////////////
+    // *! Verify document via Document Id  ------------------------ //
+
+    //////////////////////////////////////////////////////
+
+
+
+    console.log(" status ----  ", "id  == ", await transactionsContract.checkDocumentExistence(2));
+
+
+
+
+    const institutions = await transactionsContract.getUploaderDocuments("0x28F1170dE3752Bf8C091386801D4d1c3961006AC");
+    console.log("certificate List ", (institutions))
+    console.log("data ============== ", await transactionsContract.owner())
+
+
+    console.log("  ===============================   send transaction 22 ==============================")
+
+  }
+
+
+
+
 
   const getAllTransactions = async () => {
     try {
       if (ethereum) {
-        const transactionsContract = createEthereumContract();
+        const transactionsContract = await createEthereumContract();
 
-        const availableTransactions = await transactionsContract.getAllTransactions();
+        const availableTransactions =
+          await transactionsContract.getUploaderDocuments();
 
-        const structuredTransactions = availableTransactions.map((transaction: any) => ({
-          addressTo: transaction.receiver,
-          addressFrom: transaction.sender,
-          timestamp: new Date(transaction.timestamp.toNumber() * 1000).toLocaleString(),
-          message: transaction.message,
-          keyword: transaction.keyword,
-          amount: parseInt(transaction.amount._hex) / (10 ** 18)
-        }));
-
-        console.log('completed transations')
-        console.log(structuredTransactions);
-
-        const transactionCount = await transactionsContract.getTransactionCount();
-
-        setTransactions(structuredTransactions);
+        // Update transactions state with availableTransactions
+        setTransactions(availableTransactions);
       } else {
-        console.log("Ethereum is not present");
+        console.log("Ethereum test is not present");
       }
     } catch (error) {
       console.log(error);
@@ -102,8 +475,7 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
 
       if (accounts.length) {
         setCurrentAccount(accounts[0]);
-
-        getAllTransactions();
+        console.log("   ----   Connected account is   --  ", accounts[0]);
       } else {
         console.log("No accounts found");
       }
@@ -112,70 +484,19 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
     }
   };
 
-  const checkIfTransactionsExists = async () => {
-    try {
-      if (ethereum) {
-        const transactionsContract = createEthereumContract();
-        const currentTransactionCount = await transactionsContract.getTransactionCount();
-
-        window.localStorage.setItem("transactionCount", currentTransactionCount.toString());
-      }
-    } catch (error) {
-      console.log(error);
-
-      throw new Error("No ethereum object");
-    }
-  };
-
   const connectWallet = async () => {
     try {
       if (!ethereum) return alert("Please install MetaMask.");
 
-      const accounts = await ethereum.request({ method: "eth_requestAccounts", });
+      const accounts = await ethereum.request({
+        method: "eth_requestAccounts",
+      });
 
       setCurrentAccount(accounts[0]);
+      console.log("       --------        current account      -----------   ");
+      console.log(currentAccount);
+      console.log("       --------        current account2      -----------   ");
       window.location.reload();
-    } catch (error) {
-      console.log(error);
-
-      throw new Error("No ethereum object");
-    }
-  };
-
-  const sendTransaction = async () => {
-    try {
-      if (ethereum) {
-        const { amount, message } = formData;
-        const transactionsContract = createEthereumContract();
-        const parsedAmount = ethers.utils.parseEther(amount);
-        const keyword = 'hi';
-        const addressTo = donationAddress;
-
-        await ethereum.request({
-          method: "eth_sendTransaction",
-          params: [{
-            from: currentAccount,
-            to: addressTo,
-            gas: "0x5208",
-            value: parsedAmount.toHexString(),
-          }],
-        });
-
-        const transactionHash = await transactionsContract.addToBlockchain(addressTo, parsedAmount, message, keyword);
-
-        setIsLoading(true);
-        console.log(`Loading - ${transactionHash.hash}`);
-        await transactionHash.wait();
-        console.log(`Success - ${transactionHash.hash}`);
-        setIsLoading(false);
-
-        const transactionsCount = await transactionsContract.getTransactionCount();
-
-        setTransactionCount(transactionsCount.toNumber());
-        window.location.reload();
-      } else {
-        console.log("No ethereum object");
-      }
     } catch (error) {
       console.log(error);
 
@@ -185,20 +506,35 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
 
   useEffect(() => {
     checkIfWalletIsConnect();
-    checkIfTransactionsExists();
-  }, [transactionCount]);
+
+
+  }, []);
 
   return (
     <TransactionContext.Provider
       value={{
+        handleChange,
+        formData,
         transactionCount,
         connectWallet,
         transactions,
         currentAccount,
         isLoading,
         sendTransaction,
-        handleChange,
-        formData,
+
+
+        AddNewAuthority,
+        GetAuthorityMemberList,
+        getAuthorityDetails,
+        AddNewInstitutionAdmin,
+        GetInstitutionAdminList,
+        UploadDocument,
+        GetAllDoceuments,
+
+        allDoceuments,
+        
+        
+
       }}
     >
       {children}

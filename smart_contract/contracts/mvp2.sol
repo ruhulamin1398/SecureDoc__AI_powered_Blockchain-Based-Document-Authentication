@@ -129,29 +129,8 @@ for (uint256 j = 0; j < documentCount; j++) {
     
 }  
 
-
-
-//     // Count the number of documents uploaded by the sender
-//     for (uint256 i = 0; i < authorityMembersList.length; i++) {
-//         if (documents[authorityMembersList[i].id].uploader == _uploader) {
-//             count++;
-//         }
-//     }
-
-//     // Create an array to store the documents
-//     Document[] memory uploaderDocuments = new Document[](count);
-//     uint256 index = 0;
-//     // Retrieve the documents uploaded by the sender
-//     for (uint256 j = 0; j < authorityMembersList.length; j++) {
-//         string memory docId = authorityMembersList[j].id;
-//         if (documents[docId].uploader == _uploader) {
-//             uploaderDocuments[index] = documents[docId];
-//             index++;
-//         }
-//     }
-
     return uploaderDocuments;
-// return count;
+
 }
 
 

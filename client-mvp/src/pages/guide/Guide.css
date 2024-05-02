@@ -1,0 +1,43 @@
+.guide-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.guide-inner-wrapper {
+  width: 1140px;
+  padding: 80px 0;
+}
+
+.guide-title {
+  font-size: 38px;
+  color: #031532;
+}
+
+.guide-text {
+  font-size: 16px;
+  color: #4e5b6f;
+  line-height: 1.6;
+}
+
+.guide-subtitle {
+  font-size: 19px;
+  margin: 40px 0 22px;
+  color: #031532;
+  font-weight: 400;
+}
+
+.guide-left-intro {
+  font-size: 14px;
+  margin: 30px 0 20px;
+}
+
+.guide-left-text {
+  font-size: 13px;
+  color: #031532;
+}
+
+.active {
+  color: #2ab27b;
+  font-weight: bold;
+}
