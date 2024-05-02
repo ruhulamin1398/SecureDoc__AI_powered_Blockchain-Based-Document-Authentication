@@ -1,8 +1,13 @@
 import { Button, Input } from "antd";
 import "./Hero.css";
-import { useState } from "react";
+import { useContext, useState, CSSProperties } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
 import JsonFile from "../../hero-components/json-file/JsonFile";
 import PdfComponents from "../../hero-components/pdf-components/PdfComponents";
+import { TransactionContext } from "../../../context/TransactionContext";
+import Loader from "../../Loader"
+import Result from "../../result";
+
 
 const { Search } = Input;
 
@@ -12,28 +17,44 @@ const Hero = () => {
   const [showPdfOption, setShowPdfOption] = useState(false);
   const [registrationValue, setRegistrationValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
+  const [pdfSrc, setPdfSrc] = useState(null); 
+  let [status, setStatus] = useState(0);
 
-
-  const [hash, setHash] = useState('');
-
-
-  const [pdfSrc, setPdfSrc] = useState(null);
+  const { setHash, hash, verificationStatus, currentAccount, connectWallet, verifiyHash, isLoading, setIsLoading } = useContext(TransactionContext);
 
   const handleLoginClick = () => {
     setShowRegistration(true);
     setShowSearch(false);
   };
 
-  const handleSearchClick = () => {
+  const handleSearchClick = async () => {
+
     setShowRegistration(false);
     setShowSearch(true);
+
+
+
   };
 
   const handleLogin = () => {
     console.log("Registration:", registrationValue);
     console.log("Password:", passwordValue);
   };
+  const handleOnChange = async (e) => {
+    console.log(e)
+    setHash(e.target.value)
+    setStatus(0)
 
+  }
+
+
+  const ckHash = async () => {
+    setIsLoading(1)
+    await verifiyHash();
+ 
+    setIsLoading(0)
+    setStatus(1)
+  }
   return (
     <div className="hero-wrapper">
       <div className="hero-inner-wrapper">
@@ -45,12 +66,18 @@ const Hero = () => {
               allowClear
               enterButton="Verify"
               size="large"
-              onClick={handleSearchClick}
+              onSearch={ckHash}
               className="url-search"
-              onChange={(e) => setHash(e.target.value)}
-              
+              onChange={(e) => handleOnChange(e)}
+
             />
-             
+
+
+            {isLoading ? <Loader /> : ""}
+            {status ? <Result/> : ""}
+ 
+
+            
           </div>
         )}
 

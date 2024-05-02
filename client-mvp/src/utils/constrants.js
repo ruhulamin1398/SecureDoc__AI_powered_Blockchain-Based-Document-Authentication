@@ -9,6 +9,8 @@ export const contractABI = abi;
 
 export const shortenAddress = (address) => `${address.slice(0, 10)}...${address.slice(address.length - 7)}`;
 
+export const customShortenAddress = (address,size) => `${address.slice(0, size)}...${address.slice(address.length - 7)}`;
+
 
 
 const secretKey = 'my-secret-key'; 
@@ -23,9 +25,6 @@ export const handleDecrypt = (data) => {
   
   return (decrypted);
 };
-
-
- 
 
 
  
