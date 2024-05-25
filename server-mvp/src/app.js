@@ -1,7 +1,9 @@
 require("dotenv").config();
 const express = require('express');
 const app = express();
-require("./db/conn")
+require("./db/conn");
+
+const path = require('path');
 const errorHandler = require("./middleware/v1/errorHandler");
 
 
@@ -11,11 +13,18 @@ const errorHandler = require("./middleware/v1/errorHandler");
  
 const AsyncHandler = require("express-async-handler"); 
 
+
+
+// Middleware to parse URL-encoded form data
+app.use(express.urlencoded({ extended: true }));
+
+
 const certificateRoutes = require("./routers/certificateRoutes")
+const uploadDirectory = path.join(__dirname, 'certificates');
+ 
 
+ 
 
-// Middleware to parse JSON in the request body
-app.use(express.json());
 
 app.get('/hi', AsyncHandler(async(req,res)=>{
   // Update all existing documents to include the new fields
@@ -23,24 +32,7 @@ app.get('/hi', AsyncHandler(async(req,res)=>{
  res.json({ "msg" : "done"})
 
 }));
-// for no production only , please remove before deploy
-// app.get('/clean-data', AsyncHandler(async(req,res)=>{
-  
-  
-//   await User.deleteMany({});
-//   await VerificationCode.deleteMany({})
-   
-//  res.json({ "msg" : "All data was deleted " })
-
-// }));
-
-app.get('/users', AsyncHandler(async(req,res)=>{
-
-  const users = await User.find({});
-  
- res.json({ users})
-
-}));
+ 
 
   
  

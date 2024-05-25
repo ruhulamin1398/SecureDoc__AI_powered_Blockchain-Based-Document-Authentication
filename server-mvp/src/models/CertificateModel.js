@@ -30,6 +30,11 @@ const certificateSchema = mongoose.Schema(
       type: Number,
       default:3.50,
     },
+    is_issued: {
+      type: Number,
+      default:0,
+    },
+ 
   },
   {
     timestamps: true,

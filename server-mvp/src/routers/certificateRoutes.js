@@ -1,13 +1,19 @@
 const express = require("express");
 const { ethers } = require("ethers");
 
+const router = express.Router();
+ 
+
 const {
-  AddCertificate
+  AddCertificate,issueCertificate,getCertificate
 } = require("../controllers/certificateController");
 
+ 
 
-const router = express.Router();
+ 
 
+router.get("/:id", getCertificate); 
+router.post("/issue", issueCertificate); 
 router.post("/add", AddCertificate); 
 
  
