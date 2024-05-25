@@ -242,7 +242,7 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
 
     const transactionsContract =   await createEthereumContract();
 
-    const {id, name, comment, doctype, djson, dpdf } = formData;
+    const { djson, dpdf } = formData;
 
 
     const pdfHash =  sha256(dpdf)
@@ -264,14 +264,15 @@ export const TransactionsProvider: React.FC<TransactionsProviderProps> = ({ chil
 
     // console.log(decryptedData)
 
-
-   
+ 
     
 
 
-   const document=  await transactionsContract.uploadDocument(pdfHash,dataHash,encryptedData,doctype);
+   const document=  await transactionsContract.uploadDocument(pdfHash,dataHash,encryptedData,"certificate");
  
-     
+  
+  
+       
      
         console.log("-------------------------------------------")
         console.log(document)

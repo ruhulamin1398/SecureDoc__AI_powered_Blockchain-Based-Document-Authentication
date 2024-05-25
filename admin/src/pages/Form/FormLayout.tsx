@@ -118,15 +118,16 @@ console.log("submitted")
           {/* <Input placeholder="Address To" name="addressTo" type="text" handleChange={handleChange} /> */}
     
 
-          <label className="mb-2.5 block text-left text-black dark:text-white">
+          {/* <label className="mb-2.5 block text-left text-black dark:text-white">
             Name
-          </label>
+          </label>  
 
           <Input placeholder="Enter Name" name="name" type="text" handleChange={handleChange} />
+          
           <label className="mb-2.5 block text-left text-black dark:text-white">
             Document Type 
           </label>
-          <Input placeholder="Certificate,Marksheet, Aggrement etc." name="doctype" type="text" handleChange={handleChange} />
+          <Input placeholder="Certificate,Marksheet, Aggrement etc." name="doctype" type="text" handleChange={handleChange} /> */}
 
           <label className="mb-2.5 block text-left text-black dark:text-white">
             Document PDF  
@@ -142,10 +143,10 @@ console.log("submitted")
           <Input placeholder="Document PDF" name="djson" type="file" handleChange={handleChange} />
 
 
-          <label className="mb-2.5 block text-left text-black dark:text-white">
+          {/* <label className="mb-2.5 block text-left text-black dark:text-white">
             Comment
           </label>
-          <Input placeholder="Write comment here" name="comment" type="text" handleChange={handleChange} />
+          <Input placeholder="Write comment here" name="comment" type="text" handleChange={handleChange} /> */}
 
 
 
