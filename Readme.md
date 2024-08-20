@@ -1,6 +1,12 @@
 
 # SecureDoc: AI-Powered Blockchain-Based Certificate Authentication
 
+
+https://github.com/user-attachments/assets/b15daa9e-3c62-4ad2-8146-6276aa9827da
+
+
+
+
 **Overview:**
 SecureDoc leverages the power of AI and blockchain technology to create a robust system for certificate authentication. This project ensures the integrity and authenticity of academic certificates by embedding them onto the Ethereum blockchain, making them tamper-proof and easily verifiable.
 
